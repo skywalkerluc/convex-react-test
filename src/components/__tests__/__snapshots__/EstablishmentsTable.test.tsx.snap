@@ -22,12 +22,17 @@ exports[`EstablishmentsTable matches snapshot 1`] = `
     </thead>
     <tbody>
       <tr
+        class="row"
         role="row"
       >
-        <td>
+        <td
+          class="cell"
+        >
           Test Restaurant
         </td>
-        <td>
+        <td
+          class="cell"
+        >
           5
         </td>
       </tr>

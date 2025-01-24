@@ -1,0 +1,11 @@
+.row {
+    border-bottom: 1px solid #dee2e6;
+    transition: background-color 0.2s;
+  }
+  
+  .cell {
+    padding: 16px;
+    text-align: left;
+    vertical-align: middle;
+    color: azure;
+  }

@@ -3,7 +3,7 @@ import { useEstablishments } from '../../../hooks/useEstablishments';
 import EstablishmentsTable from '../EstablishmentsTable';
 import EstablishmentsTableNavigation from '../EstablishmentsTableNavigation';
 import { PaginationParams } from '../../../types/establishment';
-// import styles from './styles.module.css';
+import styles from './styles.module.css';
 
 const PaginatedEstablishmentsTable = ()  => {
   const [pagination, setPagination] = useState<PaginationParams>({ page: 1, pageSize: 10 });
@@ -24,14 +24,14 @@ const PaginatedEstablishmentsTable = ()  => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {error && (
-        <div role="alert">
+        <div className={styles.error} role="alert">
           {error}
         </div>
       )}
 
-      <div>
+      <div className={styles.tableContainer}>
         <EstablishmentsTable establishments={establishments} />
       </div>
 

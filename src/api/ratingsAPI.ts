@@ -1,4 +1,5 @@
 import { EstablishmentsResponse, PaginationParams } from '../types/establishment';
+import { sanitizeBusinessName } from '../utils/sanitize';
 
 const API_BASE_URL = 'http://api.ratings.food.gov.uk/Establishments';
 
@@ -21,7 +22,7 @@ export async function getEstablishmentRatings(
     const mappedData: EstablishmentsResponse = {
       establishments: rawData.establishments.map((est: any) => ({
         id: est.FHRSID?.toString() ?? '',
-        businessName: est.BusinessName ?? 'Unknown business name',
+        businessName: est.BusinessName ? sanitizeBusinessName(est.BusinessName) : 'Unknown business name',
         ratingValue: Number(est.RatingValue) || 0,
         latitude: est.geocode?.latitude ?? '0',
         longitude: est.geocode?.longitude ?? '0',

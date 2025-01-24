@@ -1,5 +1,5 @@
 import React from 'react';
-// import styles from './styles.module.css';
+import styles from './styles.module.css';
 
 interface NavigationProps {
   currentPage: number;
@@ -20,9 +20,10 @@ const EstablishmentsTableNavigation: React.FC<NavigationProps> = ({
   const isLastPage = currentPage === totalPages;
 
   return (
-    <div data-testid="pagination-controls">
+    <div className={styles.navigationContainer} data-testid="pagination-controls">
       <button
         type="button"
+        className={styles.button}
         onClick={onPrevious}
         disabled={loading || isFirstPage}
         aria-disabled={loading || isFirstPage}
@@ -31,12 +32,13 @@ const EstablishmentsTableNavigation: React.FC<NavigationProps> = ({
         Previous
       </button>
 
-      <span>
+      <span className={styles.pageInfo}>
         Page {currentPage} of {totalPages}
       </span>
 
       <button
         type="button"
+        className={styles.button} 
         onClick={onNext}
         disabled={loading || isLastPage}
         aria-disabled={loading || isLastPage}

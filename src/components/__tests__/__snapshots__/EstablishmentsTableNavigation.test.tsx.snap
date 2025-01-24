@@ -3,21 +3,26 @@
 exports[`EstablishmentsTableNavigation matches snapshot 1`] = `
 <DocumentFragment>
   <div
+    class="navigationContainer"
     data-testid="pagination-controls"
   >
     <button
       aria-disabled="false"
       aria-label="Previous page"
+      class="button"
       type="button"
     >
       Previous
     </button>
-    <span>
+    <span
+      class="pageInfo"
+    >
       Page 2 of 5
     </span>
     <button
       aria-disabled="false"
       aria-label="Next page"
+      class="button"
       type="button"
     >
       Next

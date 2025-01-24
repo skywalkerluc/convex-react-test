@@ -2,8 +2,12 @@
 
 exports[`PaginatedEstablishmentsTable matches snapshot 1`] = `
 <DocumentFragment>
-  <div>
-    <div>
+  <div
+    class="container"
+  >
+    <div
+      class="tableContainer"
+    >
       <table
         aria-label="Tabela de estabelecimentos"
         class="table"
@@ -26,22 +30,27 @@ exports[`PaginatedEstablishmentsTable matches snapshot 1`] = `
       </table>
     </div>
     <div
+      class="navigationContainer"
       data-testid="pagination-controls"
     >
       <button
         aria-disabled="true"
         aria-label="Previous page"
+        class="button"
         disabled=""
         type="button"
       >
         Previous
       </button>
-      <span>
+      <span
+        class="pageInfo"
+      >
         Page 1 of 5
       </span>
       <button
         aria-disabled="false"
         aria-label="Next page"
+        class="button"
         type="button"
       >
         Next
@@ -53,13 +62,18 @@ exports[`PaginatedEstablishmentsTable matches snapshot 1`] = `
 
 exports[`PaginatedEstablishmentsTable matches snapshot with error 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="container"
+  >
     <div
+      class="error"
       role="alert"
     >
       Erro de conexão
     </div>
-    <div>
+    <div
+      class="tableContainer"
+    >
       <table
         aria-label="Tabela de estabelecimentos"
         class="table"
@@ -82,22 +96,27 @@ exports[`PaginatedEstablishmentsTable matches snapshot with error 1`] = `
       </table>
     </div>
     <div
+      class="navigationContainer"
       data-testid="pagination-controls"
     >
       <button
         aria-disabled="true"
         aria-label="Previous page"
+        class="button"
         disabled=""
         type="button"
       >
         Previous
       </button>
-      <span>
+      <span
+        class="pageInfo"
+      >
         Page 1 of 0
       </span>
       <button
         aria-disabled="false"
         aria-label="Next page"
+        class="button"
         type="button"
       >
         Next
