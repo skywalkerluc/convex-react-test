@@ -1,12 +1,19 @@
 .container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
   }
   
   .title {
     text-align: center;
     color: azure;
     margin-bottom: 2rem;
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
+
+.logo {
+  width: 150px;
+  height: 100px;
+  background: transparent url('/public/static/logo.svg') no-repeat center;
+  margin-left: auto;
+  margin-right: auto;
+}
