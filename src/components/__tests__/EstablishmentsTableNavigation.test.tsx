@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import EstablishmentsTableNavigation from '../establishments/EstablishmentsTableNavigation';
 
 describe('EstablishmentsTableNavigation', () => {
@@ -10,7 +11,7 @@ describe('EstablishmentsTableNavigation', () => {
         onPrevious={() => {}}
         onNext={() => {}}
         loading={false}
-      />
+      />,
     );
     expect(asFragment()).toMatchSnapshot();
   });

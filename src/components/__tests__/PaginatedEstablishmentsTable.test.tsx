@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import PaginatedEstablishmentsTable from '../establishments/PaginatedEstablishmentsTable';
 
 jest.mock('../../hooks/useEstablishments', () => ({
@@ -6,8 +7,8 @@ jest.mock('../../hooks/useEstablishments', () => ({
     establishments: [],
     totalPages: 5,
     loading: false,
-    error: null
-  })
+    error: null,
+  }),
 }));
 
 describe('PaginatedEstablishmentsTable', () => {
@@ -17,12 +18,13 @@ describe('PaginatedEstablishmentsTable', () => {
   });
 
   it('matches snapshot with error', () => {
-    jest.spyOn(require('../../hooks/useEstablishments'), 'useEstablishments')
+    jest
+      .spyOn(require('../../hooks/useEstablishments'), 'useEstablishments')
       .mockImplementation(() => ({
         establishments: [],
         totalPages: 0,
         loading: false,
-        error: 'Erro de conexão'
+        error: 'Erro de conexão',
       }));
 
     const { asFragment } = render(<PaginatedEstablishmentsTable />);

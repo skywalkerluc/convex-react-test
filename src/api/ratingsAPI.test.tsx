@@ -1,75 +1,76 @@
-import { enableFetchMocks } from "jest-fetch-mock";
-import { getEstablishmentRatings } from "./ratingsAPI";
+import fetch, { enableFetchMocks } from 'jest-fetch-mock';
+
 import { EstablishmentsResponse, PaginationParams } from '../types/establishment';
-import fetch from "jest-fetch-mock";
+
+import { getEstablishmentRatings } from './ratingsAPI';
 
 enableFetchMocks();
 
-describe("Ratings API", () => {
+describe('Ratings API', () => {
   const mockApiResponse = {
     establishments: [
       {
         FHRSID: 12345,
-        BusinessName: "Test Restaurant",
-        RatingValue: "5",
+        BusinessName: 'Test Restaurant',
+        RatingValue: '5',
         geocode: {
-          latitude: "51.5074",
-          longitude: "-0.1278"
+          latitude: '51.5074',
+          longitude: '-0.1278',
         },
-        AddressLine1: "Test Street 1",
-        AddressLine2: "",
-        AddressLine3: "",
-        PostCode: "TE5 5TP"
-      }
+        AddressLine1: 'Test Street 1',
+        AddressLine2: '',
+        AddressLine3: '',
+        PostCode: 'TE5 5TP',
+      },
     ],
     meta: {
-      dataSource: "API",
-      extractDate: "2023-09-20",
+      dataSource: 'API',
+      extractDate: '2023-09-20',
       itemCount: 1,
-      returncode: "OK",
+      returncode: 'OK',
       totalCount: 100,
       totalPages: 10,
       pageSize: 10,
-      pageNumber: 1
+      pageNumber: 1,
     },
     links: [
       {
-        rel: "self",
-        href: "/Establishments"
-      }
-    ]
+        rel: 'self',
+        href: '/Establishments',
+      },
+    ],
   };
 
   const expectedMappedData: EstablishmentsResponse = {
     establishments: [
       {
-        id: "12345",
-        businessName: "Test Restaurant",
+        id: '12345',
+        businessName: 'Test Restaurant',
         ratingValue: 5,
-        latitude: "51.5074",
-        longitude: "-0.1278",
-        addressLine1: "Test Street 1",
-        addressLine2: "",
-        addressLine3: "",
-        postCode: "TE5 5TP"
-      }
+        latitude: '51.5074',
+        longitude: '-0.1278',
+        addressLine1: 'Test Street 1',
+        addressLine2: '',
+        addressLine3: '',
+        postCode: 'TE5 5TP',
+      },
     ],
     meta: {
       ...mockApiResponse.meta,
-      totalPages: 10
+      totalPages: 10,
     },
-    links: mockApiResponse.links
+    links: mockApiResponse.links,
   };
 
   beforeEach(() => {
     fetch.resetMocks();
   });
 
-  it("should call API with correct parameters and map response", async () => {
+  it('should call API with correct parameters and map response', async () => {
     // Arrange
     const pageParams: PaginationParams = {
       page: 1,
-      pageSize: 10
+      pageSize: 10,
     };
 
     fetch.mockResponseOnce(JSON.stringify(mockApiResponse));
@@ -82,42 +83,42 @@ describe("Ratings API", () => {
     expect(fetch).toHaveBeenCalledWith(
       `http://api.ratings.food.gov.uk/Establishments/basic/${pageParams.page}/${pageParams.pageSize}`,
       {
-        headers: { 
-          'x-api-version': '2'
-        }
-      }
+        headers: {
+          'x-api-version': '2',
+        },
+      },
     );
-    
+
     expect(result).toEqual(expectedMappedData);
   });
 
-  it("should throw error when API response is not OK", async () => {
+  it('should throw error when API response is not OK', async () => {
     // Arrange
     const pageParams: PaginationParams = {
       page: 1,
-      pageSize: 10
+      pageSize: 10,
     };
 
     fetch.mockResponseOnce(JSON.stringify({}), { status: 500 });
 
     // Act & Assert
-    await expect(getEstablishmentRatings(pageParams)).rejects.toThrow(
-      "HTTP error! Status: 500"
-    );
+    await expect(getEstablishmentRatings(pageParams)).rejects.toThrow('HTTP error! Status: 500');
   });
 
-  it("should handle unexpected data format", async () => {
+  it('should handle unexpected data format', async () => {
     // Arrange
     const pageParams: PaginationParams = {
       page: 1,
-      pageSize: 10
+      pageSize: 10,
     };
 
-    fetch.mockResponseOnce(JSON.stringify({
-      establishments: [{}], // Invalid data
-      meta: {},
-      links: []
-    }));
+    fetch.mockResponseOnce(
+      JSON.stringify({
+        establishments: [{}], // Invalid data
+        meta: {},
+        links: [],
+      }),
+    );
 
     // Act
     const result = await getEstablishmentRatings(pageParams);
@@ -132,7 +133,7 @@ describe("Ratings API", () => {
       addressLine1: '',
       addressLine2: '',
       addressLine3: '',
-      postCode: ''
+      postCode: '',
     });
   });
 });

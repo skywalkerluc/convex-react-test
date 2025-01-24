@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Establishment } from '../../../types/establishment';
 import EstablishmentsTableRow from '../EstablishmentsTableRow';
+
 import styles from './styles.module.css';
 
 interface TableProps {
@@ -8,7 +10,7 @@ interface TableProps {
 }
 
 const EstablishmentsTable: React.FC<TableProps> = ({ establishments }) => (
-  <table className={styles.table} aria-label="Tabela de estabelecimentos">
+  <table className={styles.table} aria-label='Tabela de estabelecimentos'>
     <thead>
       <tr>
         <th className={styles.header}>Business Name</th>
@@ -17,10 +19,7 @@ const EstablishmentsTable: React.FC<TableProps> = ({ establishments }) => (
     </thead>
     <tbody>
       {establishments.map((establishment) => (
-        <EstablishmentsTableRow 
-          key={establishment.id} 
-          establishment={establishment} 
-        />
+        <EstablishmentsTableRow key={establishment.id} establishment={establishment} />
       ))}
     </tbody>
   </table>

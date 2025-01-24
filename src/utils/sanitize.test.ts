@@ -1,5 +1,4 @@
-import { sanitizeBusinessName } from "./sanitize";
-
+import { sanitizeBusinessName } from './sanitize';
 
 describe('sanitizeBusinessName', () => {
   it('should clean problematic names', () => {

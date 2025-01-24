@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import EstablishmentsTable from '../establishments/EstablishmentsTable';
 
 const mockEstablishments = [
@@ -11,15 +12,13 @@ const mockEstablishments = [
     addressLine1: 'Test Street 1',
     addressLine2: '',
     addressLine3: '',
-    postCode: 'TE1 1ST'
-  }
+    postCode: 'TE1 1ST',
+  },
 ];
 
 describe('EstablishmentsTable', () => {
   it('matches snapshot', () => {
-    const { asFragment } = render(
-      <EstablishmentsTable establishments={mockEstablishments} />
-    );
+    const { asFragment } = render(<EstablishmentsTable establishments={mockEstablishments} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

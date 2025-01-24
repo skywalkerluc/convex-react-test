@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
-import {
-  EstablishmentsResponse, 
-  PaginationParams, 
-  UseEstablishmentsReturn 
-} from '../types/establishment';
-import { getEstablishmentRatings } from '../api/ratingsAPI';
 
-export const useEstablishments = (
-  params: PaginationParams
-): UseEstablishmentsReturn => {
+import { getEstablishmentRatings } from '../api/ratingsAPI';
+import {
+  EstablishmentsResponse,
+  PaginationParams,
+  UseEstablishmentsReturn,
+} from '../types/establishment';
+
+export const useEstablishments = (params: PaginationParams): UseEstablishmentsReturn => {
   const [state, setState] = useState<UseEstablishmentsReturn>({
     establishments: [],
     totalPages: 0,
     loading: true,
-    error: null
+    error: null,
   });
 
   useEffect(() => {
@@ -22,20 +21,19 @@ export const useEstablishments = (
     const fetchData = async () => {
       try {
         const data: EstablishmentsResponse = await getEstablishmentRatings(params);
-        
+
         setState({
           establishments: data.establishments,
           totalPages: data.meta.totalPages,
           loading: false,
-          error: null
+          error: null,
         });
-
       } catch (error) {
         if (!controller.signal.aborted) {
-          setState(prev => ({
+          setState((prev) => ({
             ...prev,
             loading: false,
-            error: error instanceof Error ? error.message : 'Erro desconhecido'
+            error: error instanceof Error ? error.message : 'Erro desconhecido',
           }));
         }
       }
