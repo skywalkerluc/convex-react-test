@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EstablishmentsTable matches snapshot 1`] = `
+<DocumentFragment>
+  <table
+    aria-label="Tabela de estabelecimentos"
+    class="table"
+  >
+    <thead>
+      <tr>
+        <th
+          class="header"
+        >
+          Business Name
+        </th>
+        <th
+          class="header"
+        >
+          Rating
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        role="row"
+      >
+        <td>
+          Test Restaurant
+        </td>
+        <td>
+          5
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
