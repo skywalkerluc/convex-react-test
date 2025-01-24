@@ -1,28 +1,46 @@
-export type EstablishmentsType = {
-  establishments: {}[];
-  meta: {
-    dataSource: string;
-    extractDate: string;
-    itemCount: number;
-    returncode: string;
-    totalCount: number;
-    totalPages: number;
-    pageSize: number;
-    pageNumber: number;
-  };
-  links: [
-    {
-      rel: string;
-      href: string;
-    }
-  ];
-};
+import { EstablishmentsResponse, PaginationParams } from '../types/establishment';
 
-export function getEstablishmentRatings(
-  pageNum: number
-): Promise<EstablishmentsType> {
-  return fetch(
-    `http://api.ratings.food.gov.uk/Establishments/basic/${pageNum}/10`,
-    { headers: { "x-api-version": "2" } }
-  ).then((res) => res.json());
+const API_BASE_URL = 'http://api.ratings.food.gov.uk/Establishments';
+
+export async function getEstablishmentRatings(
+  params: PaginationParams
+): Promise<EstablishmentsResponse> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/basic/${params.page}/${params.pageSize}`, {
+      headers: { 
+        'x-api-version': '2'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const rawData = await response.json();
+
+    const mappedData: EstablishmentsResponse = {
+      establishments: rawData.establishments.map((est: any) => ({
+        id: est.FHRSID?.toString() ?? '',
+        businessName: est.BusinessName ?? 'Unknown business name',
+        ratingValue: Number(est.RatingValue) || 0,
+        latitude: est.geocode?.latitude ?? '0',
+        longitude: est.geocode?.longitude ?? '0',
+        addressLine1: est.AddressLine1 ?? '',
+        addressLine2: est.AddressLine2 ?? '',
+        addressLine3: est.AddressLine3 ?? '',
+        postCode: est.PostCode ?? ''
+      })),
+      meta: { ...rawData.meta },
+      links: [...rawData.links]
+    };
+
+    return mappedData;
+  } catch (error) {
+    console.error('API Error:', error);
+    throw new Error(
+      error instanceof Error 
+        ? error.message 
+        : 'Server error'
+    );
+  }
 }

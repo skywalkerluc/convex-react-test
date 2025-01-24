@@ -1,0 +1,11 @@
+.table {
+    width: 100%;
+  }
+  
+  .header {
+    background-color: #f8f9fa;
+  }
+  
+  .row:hover {
+    background-color: #f8f9fa;
+  }
