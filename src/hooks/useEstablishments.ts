@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { getEstablishmentRatings } from '../api/ratingsAPI';
-import {
-  EstablishmentsResponse,
-  PaginationParams,
-  UseEstablishmentsReturn,
-} from '../types/establishment';
+import { PaginationParams, UseEstablishmentsReturn } from '../types/establishment';
 
 export const useEstablishments = (params: PaginationParams): UseEstablishmentsReturn => {
   const [state, setState] = useState<UseEstablishmentsReturn>({
@@ -19,8 +15,10 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
     const controller = new AbortController();
 
     const fetchData = async () => {
+      setState((prev) => ({ ...prev, loading: true }));
+
       try {
-        const data: EstablishmentsResponse = await getEstablishmentRatings(params);
+        const data = await getEstablishmentRatings(params, controller.signal);
 
         setState({
           establishments: data.establishments,
@@ -28,13 +26,15 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
           loading: false,
           error: null,
         });
-      } catch (error) {
-        if (!controller.signal.aborted) {
-          setState((prev) => ({
-            ...prev,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        if (error.name !== 'AbortError') {
+          setState({
+            establishments: [],
+            totalPages: 0,
             loading: false,
-            error: error instanceof Error ? error.message : 'Erro desconhecido',
-          }));
+            error: error.message || 'Error when fetching establishments',
+          });
         }
       }
     };
@@ -42,7 +42,7 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
     fetchData();
 
     return () => controller.abort();
-  }, [params.page]);
+  }, [params.page, params.pageSize]);
 
   return state;
 };

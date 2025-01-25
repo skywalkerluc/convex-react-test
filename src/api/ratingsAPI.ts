@@ -5,12 +5,14 @@ const API_BASE_URL = 'http://api.ratings.food.gov.uk/Establishments';
 
 export async function getEstablishmentRatings(
   params: PaginationParams,
+  signal?: AbortSignal,
 ): Promise<EstablishmentsResponse> {
   try {
     const response = await fetch(`${API_BASE_URL}/basic/${params.page}/${params.pageSize}`, {
       headers: {
         'x-api-version': '2',
       },
+      signal,
     });
 
     if (!response.ok) {
