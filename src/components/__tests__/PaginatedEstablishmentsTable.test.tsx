@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import PaginatedEstablishmentsTable from '../establishments/PaginatedEstablishmentsTable';
+import PaginatedEstablishmentsTable from '../features/establishments/PaginatedEstablishmentsTable';
 
 jest.mock('../../hooks/useEstablishments', () => ({
   useEstablishments: () => ({

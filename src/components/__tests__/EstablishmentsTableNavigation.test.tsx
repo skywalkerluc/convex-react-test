@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import EstablishmentsTableNavigation from '../establishments/EstablishmentsTableNavigation';
+import EstablishmentsTableNavigation from '../features/establishments/EstablishmentsTableNavigation';
 
 describe('EstablishmentsTableNavigation', () => {
   it('matches snapshot', () => {

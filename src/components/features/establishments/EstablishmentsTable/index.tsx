@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Establishment } from '../../../types/establishment';
-import { LoadingIndicator } from '../../common/LoadingIndicator';
+import { Establishment } from '../../../../types/establishment';
+import { LoadingIndicator } from '../../../common/LoadingIndicator';
 import EstablishmentsTableRow from '../EstablishmentsTableRow';
 
 import styles from './styles.module.css';

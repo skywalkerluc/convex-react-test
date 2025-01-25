@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Establishment } from '../../../types/establishment';
+import { Establishment } from '../../../../types/establishment';
 
 import styles from './styles.module.css';
 

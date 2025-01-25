@@ -1,6 +1,7 @@
 import fetch, { enableFetchMocks } from 'jest-fetch-mock';
 
-import { EstablishmentsResponse, PaginationParams } from '../types/establishment';
+import { EstablishmentResponse } from '../types/api';
+import { PaginationParams } from '../types/pagination';
 
 import { getEstablishmentRatings } from './ratingsAPI';
 
@@ -41,7 +42,7 @@ describe('Ratings API', () => {
     ],
   };
 
-  const expectedMappedData: EstablishmentsResponse = {
+  const expectedMappedData: EstablishmentResponse = {
     establishments: [
       {
         id: '12345',

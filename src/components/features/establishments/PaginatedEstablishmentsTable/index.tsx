@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { useEstablishments } from '../../../hooks/useEstablishments';
-import { PaginationParams } from '../../../types/establishment';
+import { useEstablishments } from '../../../../hooks/useEstablishments';
+import { PaginationParams } from '../../../../types/pagination';
 import EstablishmentsTable from '../EstablishmentsTable';
 import EstablishmentsTableNavigation from '../EstablishmentsTableNavigation';
 

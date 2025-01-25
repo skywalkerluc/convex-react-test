@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import EstablishmentsTable from '../establishments/EstablishmentsTable';
+import EstablishmentsTable from '../features/establishments/EstablishmentsTable';
 
 const mockEstablishments = [
   {

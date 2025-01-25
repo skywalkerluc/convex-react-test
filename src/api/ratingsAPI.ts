@@ -1,4 +1,5 @@
-import { EstablishmentsResponse, PaginationParams } from '../types/establishment';
+import { EstablishmentResponse } from '../types/api';
+import { PaginationParams } from '../types/pagination';
 import { sanitizeBusinessName } from '../utils/sanitize';
 
 const API_BASE_URL = 'http://api.ratings.food.gov.uk/Establishments';
@@ -6,7 +7,7 @@ const API_BASE_URL = 'http://api.ratings.food.gov.uk/Establishments';
 export async function getEstablishmentRatings(
   params: PaginationParams,
   signal?: AbortSignal,
-): Promise<EstablishmentsResponse> {
+): Promise<EstablishmentResponse> {
   try {
     const response = await fetch(`${API_BASE_URL}/basic/${params.page}/${params.pageSize}`, {
       headers: {
@@ -21,7 +22,7 @@ export async function getEstablishmentRatings(
 
     const rawData = await response.json();
 
-    const mappedData: EstablishmentsResponse = {
+    const mappedData: EstablishmentResponse = {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       establishments: rawData.establishments.map((est: any) => ({
         id: est.FHRSID?.toString() ?? '',

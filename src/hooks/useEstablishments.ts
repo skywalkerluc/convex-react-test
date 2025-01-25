@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 
 import { getEstablishmentRatings } from '../api/ratingsAPI';
-import { PaginationParams, UseEstablishmentsReturn } from '../types/establishment';
+import { UseEstablishmentsReturn } from '../types/establishment';
+import { PaginationParams } from '../types/pagination';
 
 export const useEstablishments = (params: PaginationParams): UseEstablishmentsReturn => {
   const [state, setState] = useState<UseEstablishmentsReturn>({
