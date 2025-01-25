@@ -3,7 +3,7 @@
 exports[`EstablishmentsTable matches snapshot 1`] = `
 <DocumentFragment>
   <table
-    aria-label="Tabela de estabelecimentos"
+    aria-label="Establishment table"
     class="table"
   >
     <thead>

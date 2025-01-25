@@ -24,7 +24,7 @@ describe('PaginatedEstablishmentsTable', () => {
         establishments: [],
         totalPages: 0,
         loading: false,
-        error: 'Erro de conexão',
+        error: 'Connection error',
       }));
 
     const { asFragment } = render(<PaginatedEstablishmentsTable />);

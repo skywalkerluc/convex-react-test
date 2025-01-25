@@ -10,7 +10,7 @@ interface TableProps {
 }
 
 const EstablishmentsTable: React.FC<TableProps> = ({ establishments }) => (
-  <table className={styles.table} aria-label='Tabela de estabelecimentos'>
+  <table className={styles.table} aria-label='Establishment table'>
     <thead>
       <tr>
         <th className={styles.header}>Business Name</th>

@@ -136,4 +136,13 @@ describe('Ratings API', () => {
       postCode: '',
     });
   });
+
+  it('should abort request when unmounted', async () => {
+    const pageParams = { page: 1, pageSize: 10 };
+    const controller = new AbortController();
+    const promise = getEstablishmentRatings(pageParams, controller.signal);
+
+    controller.abort();
+    await expect(promise).rejects.toThrow();
+  });
 });
