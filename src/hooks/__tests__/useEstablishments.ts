@@ -1,7 +1,8 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import fetch from 'jest-fetch-mock';
-import { useEstablishments } from '../useEstablishments';
+
 import { EstablishmentsResponse } from '../../types/establishment';
+import { useEstablishments } from '../useEstablishments';
 
 const mockApiResponse: EstablishmentsResponse = {
   establishments: [

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import styles from './styles.module.css';
 
@@ -51,4 +51,4 @@ const EstablishmentsTableNavigation: React.FC<NavigationProps> = ({
   );
 };
 
-export default React.memo(EstablishmentsTableNavigation);
+export default memo(EstablishmentsTableNavigation);
