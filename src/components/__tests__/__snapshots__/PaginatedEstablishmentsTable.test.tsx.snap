@@ -6,7 +6,7 @@ exports[`PaginatedEstablishmentsTable matches snapshot 1`] = `
     class="container"
   >
     <div
-      class="tableContainer"
+      class="tableWrapper"
     >
       <table
         aria-label="Establishment table"
@@ -26,7 +26,16 @@ exports[`PaginatedEstablishmentsTable matches snapshot 1`] = `
             </th>
           </tr>
         </thead>
-        <tbody />
+        <tbody>
+          <tr>
+            <td
+              class="noResults"
+              colspan="2"
+            >
+              No establishments found
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <div
@@ -51,7 +60,6 @@ exports[`PaginatedEstablishmentsTable matches snapshot 1`] = `
         aria-disabled="false"
         aria-label="Next page"
         class="button"
-        data-testid="next-btn"
         type="button"
       >
         Next
@@ -73,7 +81,7 @@ exports[`PaginatedEstablishmentsTable matches snapshot with error 1`] = `
       Connection error
     </div>
     <div
-      class="tableContainer"
+      class="tableWrapper"
     >
       <table
         aria-label="Establishment table"
@@ -93,7 +101,16 @@ exports[`PaginatedEstablishmentsTable matches snapshot with error 1`] = `
             </th>
           </tr>
         </thead>
-        <tbody />
+        <tbody>
+          <tr>
+            <td
+              class="noResults"
+              colspan="2"
+            >
+              No establishments found
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <div
@@ -118,7 +135,6 @@ exports[`PaginatedEstablishmentsTable matches snapshot with error 1`] = `
         aria-disabled="false"
         aria-label="Next page"
         class="button"
-        data-testid="next-btn"
         type="button"
       >
         Next

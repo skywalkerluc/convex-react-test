@@ -33,8 +33,8 @@ const PaginatedEstablishmentsTable = () => {
         </div>
       )}
 
-      <div className={styles.tableContainer}>
-        <EstablishmentsTable establishments={establishments} />
+      <div className={styles.tableWrapper}>
+        <EstablishmentsTable establishments={establishments} loading={loading} />
       </div>
 
       <EstablishmentsTableNavigation

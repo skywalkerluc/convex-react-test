@@ -1,10 +1,9 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import fetch from 'jest-fetch-mock';
 
-import { EstablishmentsResponse } from '../../types/establishment';
 import { useEstablishments } from '../useEstablishments';
 
-const mockApiResponse: EstablishmentsResponse = {
+const mockApiResponse = {
   establishments: [
     {
       id: '123',
@@ -13,25 +12,23 @@ const mockApiResponse: EstablishmentsResponse = {
       latitude: '51.5074',
       longitude: '-0.1278',
       addressLine1: 'Test Street 1',
-      addressLine2: '',
-      addressLine3: '',
       postCode: 'TE1 1ST',
     },
   ],
   meta: {
+    totalPages: 10,
+    pageSize: 10,
+    pageNumber: 1,
     dataSource: 'API',
     extractDate: '2023-10-01',
     itemCount: 1,
     returncode: 'OK',
     totalCount: 100,
-    totalPages: 10,
-    pageSize: 10,
-    pageNumber: 1,
   },
   links: [],
 };
 
-describe('useEstablishments Hook', () => {
+describe('useEstablishments', () => {
   beforeEach(() => {
     fetch.resetMocks();
     jest.useFakeTimers();
@@ -41,20 +38,38 @@ describe('useEstablishments Hook', () => {
     jest.useRealTimers();
   });
 
-  it('should maintain initial state after unmount', async () => {
+  it('should clear data during loading', async () => {
+    fetch.mockResponseOnce(JSON.stringify(mockApiResponse));
+
+    const { result, rerender } = renderHook(
+      ({ page }) => useEstablishments({ page, pageSize: 10 }),
+      { initialProps: { page: 1 } },
+    );
+
+    await act(async () => {
+      jest.advanceTimersByTime(100);
+    });
+    expect(result.current.establishments.length).toBeGreaterThan(0);
+
+    fetch.mockResponseOnce(JSON.stringify(mockApiResponse));
+    rerender({ page: 2 });
+
+    expect(result.current.establishments).toEqual([]);
+    expect(result.current.loading).toBe(true);
+  });
+
+  it('should maintain initial state when unmounted', async () => {
     fetch.mockResponseOnce(
       () =>
         new Promise((resolve) => setTimeout(() => resolve(JSON.stringify(mockApiResponse)), 200)),
     );
 
     const { result, unmount } = renderHook(() => useEstablishments({ page: 1, pageSize: 10 }));
-
     unmount();
 
     act(() => {
       jest.advanceTimersByTime(300);
     });
-
     expect(result.current).toEqual({
       establishments: [],
       totalPages: 0,
@@ -64,17 +79,14 @@ describe('useEstablishments Hook', () => {
   });
 
   it('should handle API errors', async () => {
-    fetch.mockRejectOnce(new Error('Network failed'));
+    fetch.mockReject(new Error('Network failure'));
 
-    const { result, waitForNextUpdate } = renderHook(() =>
-      useEstablishments({ page: 1, pageSize: 10 }),
-    );
+    const { result } = renderHook(() => useEstablishments({ page: 1, pageSize: 10 }));
 
-    await waitForNextUpdate();
-
-    expect(result.current).toMatchObject({
-      loading: false,
-      error: 'Network failed',
+    await act(async () => {
+      jest.advanceTimersByTime(100);
     });
+    expect(result.current.error).toMatch('Network failure');
+    expect(result.current.establishments).toEqual([]);
   });
 });

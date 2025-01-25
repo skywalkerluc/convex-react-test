@@ -15,7 +15,12 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
     const controller = new AbortController();
 
     const fetchData = async () => {
-      setState((prev) => ({ ...prev, loading: true }));
+      setState((prev) => ({
+        ...prev,
+        establishments: [],
+        loading: true,
+        error: null,
+      }));
 
       try {
         const data = await getEstablishmentRatings(params, controller.signal);
