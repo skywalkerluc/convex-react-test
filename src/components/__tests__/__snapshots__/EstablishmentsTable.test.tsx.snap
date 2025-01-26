@@ -1,12 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EstablishmentsTable matches snapshot 1`] = `
-<DocumentFragment>
+<div>
   <table
     class="table"
   >
     <thead>
       <tr>
+        <th
+          class="headerAction"
+        >
+          Select
+        </th>
         <th
           class="header"
         >
@@ -27,6 +32,16 @@ exports[`EstablishmentsTable matches snapshot 1`] = `
         <td
           class="cell"
         >
+          <input
+            aria-label="Add to favourites"
+            class="input"
+            type="checkbox"
+          />
+        </td>
+        <td
+          class="cell"
+          role="row"
+        >
           <a
             class="link"
             href="/establishment/1"
@@ -42,5 +57,5 @@ exports[`EstablishmentsTable matches snapshot 1`] = `
       </tr>
     </tbody>
   </table>
-</DocumentFragment>
+</div>
 `;

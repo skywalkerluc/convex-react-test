@@ -32,7 +32,7 @@ const initialState: AppState = {
   establishments: [],
   pagination: { page: 1, pageSize: 5 },
   totalPages: 0,
-  isLoading: false,
+  isLoading: true,
   error: null,
 };
 

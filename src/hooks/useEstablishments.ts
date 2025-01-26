@@ -16,11 +16,14 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
 
   useEffect(() => {
     const fetchData = async () => {
-      setState((prev) => ({ ...prev, loading: true, error: null }));
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
 
-      abortControllerRef.current?.abort();
       const newController = new AbortController();
       abortControllerRef.current = newController;
+
+      setState((prev) => ({ ...prev, loading: true, error: null }));
 
       try {
         const data = await getEstablishmentRatings(params, newController.signal);
@@ -34,6 +37,8 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
           });
         }
       } catch (error) {
+        if (newController.signal.aborted) return;
+
         if (!newController.signal.aborted) {
           setState({
             establishments: [],
@@ -47,7 +52,11 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
 
     fetchData();
 
-    return () => abortControllerRef.current?.abort();
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
   }, [params.page, params.pageSize, params.authority]);
 
   return state;
