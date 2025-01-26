@@ -1,4 +1,4 @@
-import { useAuthorities } from '../../../../hooks/useAuthorities';
+import { useAppContext } from '../../../../context/AppContext';
 
 import styles from './styles.module.css';
 
@@ -9,7 +9,8 @@ export const AuthorityFilter = ({
   value: string;
   onChange: (id: string) => void;
 }) => {
-  const { authorities, loading } = useAuthorities();
+  const { state } = useAppContext();
+  const { authorities, isLoading } = state;
 
   return (
     <div className={styles.filterContainer}>
@@ -18,10 +19,10 @@ export const AuthorityFilter = ({
         id='authority-filter'
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        disabled={loading}
+        disabled={isLoading}
       >
         <option value=''>All Authorities</option>
-        {authorities?.map((authority) => (
+        {authorities.map((authority) => (
           <option key={authority.id} value={authority.id}>
             {authority.name}
           </option>

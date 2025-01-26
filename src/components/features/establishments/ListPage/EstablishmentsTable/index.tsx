@@ -11,34 +11,40 @@ interface TableProps {
   loading?: boolean;
 }
 
-const EstablishmentsTable: React.FC<TableProps> = ({ establishments, loading }) => (
-  <table className={styles.table} aria-label='Establishment table'>
-    <thead>
-      <tr>
-        <th className={styles.header}>Business Name</th>
-        <th className={styles.header}>Rating</th>
-      </tr>
-    </thead>
-    <tbody>
-      {loading ? (
+const EstablishmentsTable: React.FC<TableProps> = ({ establishments, loading }) => {
+  return (
+    <table className={styles.table}>
+      <thead>
         <tr>
-          <td colSpan={2} className={styles.loadingCell}>
-            <LoadingIndicator message='Loading establishments...' />
-          </td>
+          <th className={styles.header}>Business Name</th>
+          <th className={styles.header}>Rating</th>
         </tr>
-      ) : establishments.length > 0 ? (
-        establishments.map((establishment) => (
-          <EstablishmentsTableRow key={establishment.id} establishment={establishment} />
-        ))
-      ) : (
-        <tr>
-          <td colSpan={2} className={styles.noResults}>
-            No establishments found
-          </td>
-        </tr>
-      )}
-    </tbody>
-  </table>
-);
+      </thead>
+      <tbody>
+        {loading ? (
+          <tr>
+            <td colSpan={2} className={styles.loadingCell}>
+              <LoadingIndicator message='Loading establishments...' />
+            </td>
+          </tr>
+        ) : (
+          <>
+            {establishments.length === 0 ? (
+              <tr>
+                <td colSpan={2} className={styles.noResults}>
+                  No establishments found
+                </td>
+              </tr>
+            ) : (
+              establishments.map((establishment) => (
+                <EstablishmentsTableRow key={establishment.id} establishment={establishment} />
+              ))
+            )}
+          </>
+        )}
+      </tbody>
+    </table>
+  );
+};
 
 export default EstablishmentsTable;

@@ -1,18 +1,11 @@
 import { render, screen } from '@testing-library/react';
 
-import * as useEstablishmentsModule from '../../hooks/useEstablishments';
 import { createWrapper } from '../../test-utils';
 import PaginatedEstablishmentsTable from '../features/establishments/ListPage/PaginatedEstablishmentsTable';
 
-jest.mock('../../hooks/useEstablishments');
-
-describe('PaginatedEstablishmentsTable', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should render establishments', () => {
-    (useEstablishmentsModule.useEstablishments as jest.Mock).mockReturnValue({
+jest.mock('../../context/AppContext', () => ({
+  useAppContext: () => ({
+    state: {
       establishments: [
         {
           id: 1,
@@ -22,13 +15,19 @@ describe('PaginatedEstablishmentsTable', () => {
           postCode: 'TE5 5TP',
         },
       ],
+      authorities: [],
       totalPages: 1,
-      loading: false,
+      pagination: { page: 1, pageSize: 5 },
+      isLoading: false,
       error: null,
-    });
+    },
+    dispatch: jest.fn(),
+  }),
+}));
 
+describe('PaginatedEstablishmentsTable', () => {
+  it('should render establishments', () => {
     render(<PaginatedEstablishmentsTable />, { wrapper: createWrapper() });
-
     expect(screen.getByText('Test Restaurant')).toBeInTheDocument();
     expect(screen.getByText('5')).toBeInTheDocument();
   });

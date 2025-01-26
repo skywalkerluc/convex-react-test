@@ -1,53 +1,62 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 
-import * as useAuthoritiesModule from '../../hooks/useAuthorities';
 import { AuthorityFilter } from '../features/filters/AuthorityFilter';
 
-jest.mock('../../hooks/useAuthorities', () => ({
-  useAuthorities: jest.fn(),
+const mockAppContext = {
+  state: {
+    authorities: [
+      { id: 1, name: 'Authority 1' },
+      { id: 2, name: 'Authority 2' },
+    ],
+    establishments: [],
+    pagination: { page: 1, pageSize: 5 },
+    totalPages: 1,
+    isLoading: false,
+    error: null,
+  },
+  dispatch: jest.fn(),
+};
+
+jest.mock('../../context/AppContext', () => ({
+  useAppContext: () => mockAppContext,
 }));
 
 describe('AuthorityFilter', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    mockAppContext.dispatch.mockClear();
   });
 
   it('should render loading state', () => {
-    (useAuthoritiesModule.useAuthorities as jest.Mock).mockReturnValue({
+    mockAppContext.state = {
+      ...mockAppContext.state,
       authorities: [],
-      loading: true,
-      error: null,
-    });
+      isLoading: true,
+    };
 
     render(<AuthorityFilter value='' onChange={() => {}} />);
+
     expect(screen.getByLabelText('Local Authority:')).toBeDisabled();
+    expect(screen.getByRole('option', { name: 'All Authorities' })).toBeInTheDocument();
   });
 
   it('should render authorities', () => {
-    (useAuthoritiesModule.useAuthorities as jest.Mock).mockReturnValue({
+    mockAppContext.state = {
+      ...mockAppContext.state,
       authorities: [
         { id: 1, name: 'Authority 1' },
         { id: 2, name: 'Authority 2' },
       ],
-      loading: false,
-      error: null,
-    });
+      isLoading: false,
+    };
 
     render(<AuthorityFilter value='' onChange={() => {}} />);
+
     expect(screen.getByText('Authority 1')).toBeInTheDocument();
     expect(screen.getByText('Authority 2')).toBeInTheDocument();
   });
 
   it('should call onChange when authority is selected', () => {
     const mockOnChange = jest.fn();
-    (useAuthoritiesModule.useAuthorities as jest.Mock).mockReturnValue({
-      authorities: [
-        { id: 1, name: 'Authority 1' },
-        { id: 2, name: 'Authority 2' },
-      ],
-      loading: false,
-      error: null,
-    });
 
     render(<AuthorityFilter value='' onChange={mockOnChange} />);
 

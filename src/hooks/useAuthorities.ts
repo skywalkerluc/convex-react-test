@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 
 import { getAuthorities } from '../api/foodRatingsApi';
-import { UseAuthoritiesReturn } from '../types/authority';
 
-export const useAuthorities = (): UseAuthoritiesReturn => {
-  const [state, setState] = useState<UseAuthoritiesReturn>({
+export const useAuthorities = () => {
+  const [state, setState] = useState<{
+    authorities: Array<{ id: number; name: string }>;
+    loading: boolean;
+    error: string | null;
+  }>({
     authorities: [],
     loading: true,
     error: null,
@@ -12,38 +15,39 @@ export const useAuthorities = (): UseAuthoritiesReturn => {
 
   useEffect(() => {
     const controller = new AbortController();
+    let isMounted = true;
 
     const fetchData = async () => {
-      setState((prev) => ({
-        ...prev,
-        authorities: [],
-        loading: true,
-        error: null,
-      }));
-
       try {
         const data = await getAuthorities(controller.signal);
-
-        setState({
-          authorities: data.authorities,
-          loading: false,
-          error: null,
-        });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
-        if (error.name !== 'AbortError') {
-          setState({
-            authorities: [],
-            loading: false,
-            error: error.message || 'Error when fetching authorities',
-          });
+        if (isMounted) {
+          setTimeout(() => {
+            setState({
+              authorities: data.authorities,
+              loading: false,
+              error: null,
+            });
+          }, 0);
+        }
+      } catch (error) {
+        if (isMounted && !controller.signal.aborted) {
+          setTimeout(() => {
+            setState({
+              authorities: [],
+              loading: false,
+              error: error instanceof Error ? error.message : 'Unknown error',
+            });
+          }, 0);
         }
       }
     };
 
     fetchData();
 
-    return () => controller.abort();
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
   }, []);
 
   return state;

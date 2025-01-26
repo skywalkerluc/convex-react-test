@@ -16,19 +16,11 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
 
   useEffect(() => {
     const fetchData = async () => {
-      const previousController = abortControllerRef.current;
-      if (previousController) {
-        previousController.abort();
-      }
+      setState((prev) => ({ ...prev, loading: true, error: null }));
 
+      abortControllerRef.current?.abort();
       const newController = new AbortController();
       abortControllerRef.current = newController;
-
-      setState((prev) => ({
-        ...prev,
-        loading: true,
-        error: null,
-      }));
 
       try {
         const data = await getEstablishmentRatings(params, newController.signal);
@@ -37,30 +29,26 @@ export const useEstablishments = (params: PaginationParams): UseEstablishmentsRe
           setState({
             establishments: data.establishments,
             totalPages: data.meta.totalPages,
-            loading: false,
+            loading: true,
             error: null,
           });
         }
-      } catch (error: unknown) {
-        if (newController.signal.aborted) return;
-
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-
-        setState({
-          establishments: [],
-          totalPages: 0,
-          loading: false,
-          error: new Error(errorMessage),
-        });
+      } catch (error) {
+        if (!newController.signal.aborted) {
+          setState({
+            establishments: [],
+            totalPages: 0,
+            loading: false,
+            error: error instanceof Error ? error : new Error('Unknown error'),
+          });
+        }
       }
     };
 
     fetchData();
 
-    return () => {
-      abortControllerRef.current?.abort();
-    };
-  }, [params.authority, params.page, params.pageSize]);
+    return () => abortControllerRef.current?.abort();
+  }, [params.page, params.pageSize, params.authority]);
 
   return state;
 };

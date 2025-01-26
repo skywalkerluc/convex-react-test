@@ -1,7 +1,4 @@
-import { useState } from 'react';
-
-import { useEstablishments } from '../../../../../hooks/useEstablishments';
-import { PaginationParams } from '../../../../../types/pagination';
+import { useAppContext } from '../../../../../context/AppContext';
 import { AuthorityFilter } from '../../../filters/AuthorityFilter';
 import EstablishmentsTable from '../EstablishmentsTable';
 import EstablishmentsTableNavigation from '../EstablishmentsTableNavigation';
@@ -9,50 +6,44 @@ import EstablishmentsTableNavigation from '../EstablishmentsTableNavigation';
 import styles from './styles.module.css';
 
 const PaginatedEstablishmentsTable = () => {
-  const [options, setOptions] = useState<PaginationParams>({ page: 1, pageSize: 5 });
-  const { establishments, totalPages, loading, error } = useEstablishments(options);
+  const { state, dispatch } = useAppContext();
+  const { establishments, totalPages, pagination, isLoading, error } = state;
 
   const handlePrevious = () => {
-    setOptions((prev) => ({
-      ...prev,
-      page: Math.max(1, prev.page - 1),
-    }));
+    dispatch({ type: 'SET_PAGINATION', payload: { page: Math.max(1, pagination.page - 1) } });
   };
 
   const handleNext = () => {
-    setOptions((prev) => ({
-      ...prev,
-      page: Math.min(totalPages, prev.page + 1),
-    }));
+    dispatch({
+      type: 'SET_PAGINATION',
+      payload: { page: Math.min(totalPages, pagination.page + 1) },
+    });
   };
 
   const handleAuthorityChange = (authority: string) => {
-    setOptions((prev) => ({ ...prev, authority, page: 1 }));
-  };
-
-  const isAbortError = (error: Error | null): boolean => {
-    return error instanceof DOMException && error.name === 'AbortError';
+    dispatch({ type: 'SET_PAGINATION', payload: { authority, page: 1 } });
   };
 
   return (
     <div className={styles.container}>
-      <AuthorityFilter value={options.authority || ''} onChange={handleAuthorityChange} />
-      {error && !isAbortError(error) && (
+      <AuthorityFilter value={pagination.authority || ''} onChange={handleAuthorityChange} />
+
+      {error && !isLoading && (
         <div className={styles.error} role='alert'>
-          {error.message}
+          {error}
         </div>
       )}
 
       <div className={styles.tableWrapper}>
-        <EstablishmentsTable establishments={establishments} loading={loading} />
+        <EstablishmentsTable establishments={establishments} loading={isLoading} />
       </div>
 
       <EstablishmentsTableNavigation
-        currentPage={options.page}
+        currentPage={pagination.page}
         totalPages={totalPages}
         onPrevious={handlePrevious}
         onNext={handleNext}
-        loading={loading}
+        loading={isLoading}
       />
     </div>
   );
