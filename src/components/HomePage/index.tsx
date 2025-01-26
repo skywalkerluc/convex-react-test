@@ -1,4 +1,4 @@
-import PaginatedEstablishmentsTable from '../features/establishments/PaginatedEstablishmentsTable';
+import PaginatedEstablishmentsTable from '../features/establishments/ListPage/PaginatedEstablishmentsTable';
 
 import styles from './styles.module.css';
 

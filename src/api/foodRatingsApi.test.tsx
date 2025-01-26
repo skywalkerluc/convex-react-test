@@ -1,6 +1,6 @@
 import fetch, { enableFetchMocks } from 'jest-fetch-mock';
 
-import { EstablishmentResponse, AuthorityResponse } from '../types/api';
+import { EstablishmentListResponse, AuthorityListResponse } from '../types/api';
 import { PaginationParams } from '../types/pagination';
 
 import { getEstablishmentRatings, getAuthorities } from './foodRatingsApi';
@@ -17,14 +17,21 @@ describe('foodRatingsApi', () => {
       FHRSID: 12345,
       BusinessName: 'Test Restaurant',
       RatingValue: '5',
+      RatingDate: '2024-01-01T00:00:00',
+      AddressLine1: 'Test Street 1',
+      AddressLine2: '',
+      AddressLine3: '',
+      AddressLine4: '',
+      PostCode: 'TE5 5TP',
       geocode: {
         latitude: '51.5074',
         longitude: '-0.1278',
       },
-      AddressLine1: 'Test Street 1',
-      AddressLine2: '',
-      AddressLine3: '',
-      PostCode: 'TE5 5TP',
+      scores: {
+        Hygiene: 5,
+        Structural: 5,
+        ConfidenceInManagement: 5,
+      },
     };
 
     const mockApiResponse = {
@@ -47,18 +54,12 @@ describe('foodRatingsApi', () => {
       ],
     };
 
-    const expectedMappedData: EstablishmentResponse = {
+    const expectedMappedData: EstablishmentListResponse = {
       establishments: [
         {
-          id: '12345',
+          id: 12345,
           businessName: 'Test Restaurant',
-          ratingValue: 5,
-          latitude: '51.5074',
-          longitude: '-0.1278',
-          addressLine1: 'Test Street 1',
-          addressLine2: '',
-          addressLine3: '',
-          postCode: 'TE5 5TP',
+          ratingValue: '5',
         },
       ],
       meta: {
@@ -103,31 +104,6 @@ describe('foodRatingsApi', () => {
       await expect(getEstablishmentRatings(pageParams)).rejects.toThrow('HTTP error! Status: 500');
     });
 
-    it('should handle unexpected data format', async () => {
-      const pageParams: PaginationParams = { page: 1, pageSize: 10 };
-      fetch.mockResponseOnce(
-        JSON.stringify({
-          establishments: [{}], // Invalid data
-          meta: {},
-          links: [],
-        }),
-      );
-
-      const result = await getEstablishmentRatings(pageParams);
-
-      expect(result.establishments[0]).toEqual({
-        id: '',
-        businessName: 'Unknown business name',
-        ratingValue: 0,
-        latitude: '0',
-        longitude: '0',
-        addressLine1: '',
-        addressLine2: '',
-        addressLine3: '',
-        postCode: '',
-      });
-    });
-
     it('should abort request when unmounted', async () => {
       const pageParams = { page: 1, pageSize: 10 };
       const controller = new AbortController();
@@ -157,7 +133,7 @@ describe('foodRatingsApi', () => {
       links: [],
     };
 
-    const expectedMappedAuthorities: AuthorityResponse = {
+    const expectedMappedAuthorities: AuthorityListResponse = {
       authorities: [
         { id: 1, name: 'Authority 1' },
         { id: 2, name: 'Authority 2' },

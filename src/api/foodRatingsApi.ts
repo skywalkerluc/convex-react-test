@@ -1,4 +1,5 @@
-import { AuthorityResponse, EstablishmentResponse } from '../types/api';
+import { AuthorityListResponse, EstablishmentListResponse } from '../types/api';
+import { Establishment, EstablishmentDetails } from '../types/establishment';
 import { PaginationParams } from '../types/pagination';
 import { sanitizeBusinessName } from '../utils/sanitize';
 
@@ -12,19 +13,31 @@ const handleApiResponse = async (response: Response) => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapEstablishment = (est: any) => ({
-  id: est.FHRSID?.toString() ?? '',
-  businessName: est.BusinessName ? sanitizeBusinessName(est.BusinessName) : 'Unknown business name',
-  ratingValue: Number(est.RatingValue) || 0,
-  latitude: est.geocode?.latitude ?? '0',
-  longitude: est.geocode?.longitude ?? '0',
-  addressLine1: est.AddressLine1 ?? '',
-  addressLine2: est.AddressLine2 ?? '',
-  addressLine3: est.AddressLine3 ?? '',
-  postCode: est.PostCode ?? '',
+const mapEstablishment = (est: any): Establishment => ({
+  id: est.FHRSID,
+  businessName: sanitizeBusinessName(est.BusinessName),
+  ratingValue: est.RatingValue || 'N/A',
 });
 
-export const getAuthorities = async (signal?: AbortSignal): Promise<AuthorityResponse> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapEstablishmentDetails = (est: any): EstablishmentDetails => ({
+  id: est.FHRSID,
+  businessName: sanitizeBusinessName(est.BusinessName),
+  ratingValue: est.RatingValue || 'N/A',
+  ratingDate: est.RatingDate,
+  addressLine1: est.AddressLine1,
+  addressLine2: est.AddressLine2,
+  addressLine3: est.AddressLine3,
+  addressLine4: est.addressLine4,
+  postCode: est.PostCode,
+  scores: {
+    Hygiene: est.scores?.Hygiene || 'Not available',
+    Structural: est.scores?.Structural || 'Not available',
+    ConfidenceInManagement: est.scores?.ConfidenceInManagement || 'Not available',
+  },
+});
+
+export const getAuthorities = async (signal?: AbortSignal): Promise<AuthorityListResponse> => {
   try {
     const response = await fetch(`${API_BASE}/Authorities`, {
       headers: { 'x-api-version': '2' },
@@ -50,11 +63,9 @@ export const getAuthorities = async (signal?: AbortSignal): Promise<AuthorityRes
 export const getEstablishmentRatings = async (
   params: PaginationParams,
   signal?: AbortSignal,
-): Promise<EstablishmentResponse> => {
+): Promise<EstablishmentListResponse> => {
   try {
-    const pageNumber = params.page?.toString() || '1';
-    const pageSize = params.pageSize?.toString() || '5';
-    const url = new URL(`${API_BASE}/Establishments/basic/${pageNumber}/${pageSize}`);
+    const url = new URL(`${API_BASE}/Establishments/basic/${params.page}/${params.pageSize}`);
 
     if (params.authority) {
       url.searchParams.set('localAuthorityId', params.authority);
@@ -74,5 +85,23 @@ export const getEstablishmentRatings = async (
     };
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : 'Failed to fetch establishments');
+  }
+};
+
+export const getEstablishmentDetails = async (
+  id: number,
+  signal?: AbortSignal,
+): Promise<EstablishmentDetails> => {
+  try {
+    const response = await fetch(`${API_BASE}/Establishments/${id}`, {
+      headers: { 'x-api-version': '2' },
+      signal,
+    });
+
+    const rawData = await handleApiResponse(response);
+
+    return mapEstablishmentDetails(rawData);
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : 'Falha ao buscar detalhes');
   }
 };

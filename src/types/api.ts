@@ -1,13 +1,13 @@
 import { Authority } from './authority';
 import { Establishment } from './establishment';
 
-export type EstablishmentResponse = {
+export type EstablishmentListResponse = {
   establishments: Establishment[];
   meta: MetaResponse;
   links: LinksResponse[];
 };
 
-export type AuthorityResponse = {
+export type AuthorityListResponse = {
   authorities: Authority[];
   meta: MetaResponse;
   links: LinksResponse[];

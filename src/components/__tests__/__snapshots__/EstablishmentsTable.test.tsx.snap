@@ -28,7 +28,12 @@ exports[`EstablishmentsTable matches snapshot 1`] = `
         <td
           class="cell"
         >
-          Test Restaurant
+          <a
+            class="link"
+            href="/establishment/1"
+          >
+            Test Restaurant
+          </a>
         </td>
         <td
           class="cell"

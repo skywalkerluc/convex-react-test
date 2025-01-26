@@ -1,13 +1,24 @@
 export interface Establishment {
-  id: string;
+  id: number;
   businessName: string;
-  ratingValue: number;
-  latitude: string;
-  longitude: string;
+  ratingValue: string;
+}
+
+export interface EstablishmentDetails {
+  id: number;
+  businessName: string;
+  ratingValue: string;
+  ratingDate: string;
   addressLine1: string;
   addressLine2: string;
   addressLine3: string;
+  addressLine4: string;
   postCode: string;
+  scores: {
+    Hygiene: string;
+    Structural: string;
+    ConfidenceInManagement: string;
+  };
 }
 
 export type UseEstablishmentsReturn = {

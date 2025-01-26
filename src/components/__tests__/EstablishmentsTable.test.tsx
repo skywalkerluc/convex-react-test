@@ -1,24 +1,22 @@
 import { render } from '@testing-library/react';
 
-import EstablishmentsTable from '../features/establishments/EstablishmentsTable';
+import { createWrapper } from '../../test-utils';
+import EstablishmentsTable from '../features/establishments/ListPage/EstablishmentsTable';
 
 const mockEstablishments = [
   {
-    id: '1',
+    id: 1,
     businessName: 'Test Restaurant',
-    ratingValue: 5,
-    latitude: '51.5074',
-    longitude: '-0.1278',
-    addressLine1: 'Test Street 1',
-    addressLine2: '',
-    addressLine3: '',
-    postCode: 'TE1 1ST',
+    ratingValue: '5',
   },
 ];
 
 describe('EstablishmentsTable', () => {
   it('matches snapshot', () => {
-    const { asFragment } = render(<EstablishmentsTable establishments={mockEstablishments} />);
+    const { asFragment } = render(
+      <EstablishmentsTable establishments={mockEstablishments} loading={false} />,
+      { wrapper: createWrapper() },
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });

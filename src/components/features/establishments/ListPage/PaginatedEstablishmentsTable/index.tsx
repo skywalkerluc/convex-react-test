@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { useEstablishments } from '../../../../hooks/useEstablishments';
-import { PaginationParams } from '../../../../types/pagination';
-import { AuthorityFilter } from '../../filters/AuthorityFilter';
+import { useEstablishments } from '../../../../../hooks/useEstablishments';
+import { PaginationParams } from '../../../../../types/pagination';
+import { AuthorityFilter } from '../../../filters/AuthorityFilter';
 import EstablishmentsTable from '../EstablishmentsTable';
 import EstablishmentsTableNavigation from '../EstablishmentsTableNavigation';
 
