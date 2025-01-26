@@ -1,4 +1,3 @@
-// hooks/useAuthorities.ts
 import { useState, useEffect } from 'react';
 
 import { getAuthorities } from '../api/foodRatingsApi';

@@ -28,7 +28,7 @@ const mapEstablishmentDetails = (est: any): EstablishmentDetails => ({
   addressLine1: est.AddressLine1,
   addressLine2: est.AddressLine2,
   addressLine3: est.AddressLine3,
-  addressLine4: est.addressLine4,
+  addressLine4: est.AddressLine4,
   postCode: est.PostCode,
   scores: {
     Hygiene: est.scores?.Hygiene || 'Not available',

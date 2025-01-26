@@ -15,17 +15,19 @@ export const useEstablishmentDetails = () => {
 
     const fetchData = async () => {
       try {
-        if (!id) throw new Error('ID não fornecido');
+        if (!id) throw new Error('Missing ID');
 
         const numericId = parseInt(id, 10);
-        if (isNaN(numericId)) throw new Error('ID inválido');
+        if (isNaN(numericId)) throw new Error('Invalid ID');
 
         const data = await getEstablishmentDetails(numericId, controller.signal);
         setDetails(data);
         setError(null);
       } catch (err) {
         if (!controller.signal.aborted) {
-          setError(err instanceof Error ? err : new Error('Erro ao carregar detalhes'));
+          setError(
+            err instanceof Error ? err : new Error('Error when loading establishment details'),
+          );
         }
       } finally {
         if (!controller.signal.aborted) {

@@ -16,7 +16,7 @@ const EstablishmentDetailsPage = () => {
       .padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
   };
 
-  if (loading) return <LoadingIndicator />;
+  if (loading) return <LoadingIndicator message='Loading establishment details...' />;
 
   if (error)
     return (

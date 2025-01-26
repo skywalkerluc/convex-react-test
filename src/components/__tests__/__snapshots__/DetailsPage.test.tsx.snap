@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EstablishmentDetailsPage matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+  >
+    <button
+      class="backButton"
+    >
+      ← Back to List
+    </button>
+    <div
+      class="detailsCard"
+    >
+      <h1
+        class="title"
+      >
+        Test Restaurant
+      </h1>
+      <div
+        class="section"
+      >
+        <h2
+          class="sectionTitle"
+        >
+          Address
+        </h2>
+        <div
+          class="address"
+        >
+          <p>
+            Test Street 1
+          </p>
+          <p>
+            Test Line 2
+          </p>
+          <p>
+            Test Line 3
+          </p>
+          <p>
+            Test Line 4
+          </p>
+          <p>
+            TE5 5TP
+          </p>
+        </div>
+      </div>
+      <div
+        class="section"
+      >
+        <h2
+          class="sectionTitle"
+        >
+          Rating
+        </h2>
+        <div
+          class="ratingBadge"
+        >
+          5
+        </div>
+        <p
+          class="inspectionDate"
+        >
+          Inspection Date: 01/01/24
+        </p>
+      </div>
+      <div
+        class="section"
+      >
+        <h2
+          class="sectionTitle"
+        >
+          Scores
+        </h2>
+        <div
+          class="scoresGrid"
+        >
+          <div
+            class="scoreItem"
+          >
+            <span>
+              Hygiene
+            </span>
+            <span>
+              5
+            </span>
+          </div>
+          <div
+            class="scoreItem"
+          >
+            <span>
+              Structural
+            </span>
+            <span>
+              5
+            </span>
+          </div>
+          <div
+            class="scoreItem"
+          >
+            <span>
+              Confidence
+            </span>
+            <span>
+              5
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

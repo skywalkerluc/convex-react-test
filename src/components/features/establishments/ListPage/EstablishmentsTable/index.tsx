@@ -23,7 +23,7 @@ const EstablishmentsTable: React.FC<TableProps> = ({ establishments, loading }) 
       {loading ? (
         <tr>
           <td colSpan={2} className={styles.loadingCell}>
-            <LoadingIndicator />
+            <LoadingIndicator message='Loading establishments...' />
           </td>
         </tr>
       ) : establishments.length > 0 ? (
