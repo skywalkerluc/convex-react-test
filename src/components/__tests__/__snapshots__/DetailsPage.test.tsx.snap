@@ -8,7 +8,7 @@ exports[`EstablishmentDetailsPage matches snapshot 1`] = `
     <button
       class="backButton"
     >
-      ← Back to List
+      ← Go back
     </button>
     <div
       class="detailsCard"

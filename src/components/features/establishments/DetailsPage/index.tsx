@@ -31,7 +31,7 @@ const EstablishmentDetailsPage = () => {
   return (
     <div className={styles.container}>
       <button className={styles.backButton} onClick={() => navigate(-1)}>
-        &larr; Back to List
+        &larr; Go back
       </button>
 
       {details && (
