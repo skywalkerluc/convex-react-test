@@ -2,34 +2,44 @@ import { useState } from 'react';
 
 import { useEstablishments } from '../../../../hooks/useEstablishments';
 import { PaginationParams } from '../../../../types/pagination';
+import { AuthorityFilter } from '../../filters/AuthorityFilter';
 import EstablishmentsTable from '../EstablishmentsTable';
 import EstablishmentsTableNavigation from '../EstablishmentsTableNavigation';
 
 import styles from './styles.module.css';
 
 const PaginatedEstablishmentsTable = () => {
-  const [pagination, setPagination] = useState<PaginationParams>({ page: 1, pageSize: 10 });
-  const { establishments, totalPages, loading, error } = useEstablishments(pagination);
+  const [options, setOptions] = useState<PaginationParams>({ page: 1, pageSize: 5 });
+  const { establishments, totalPages, loading, error } = useEstablishments(options);
 
   const handlePrevious = () => {
-    setPagination((prev) => ({
+    setOptions((prev) => ({
       ...prev,
       page: Math.max(1, prev.page - 1),
     }));
   };
 
   const handleNext = () => {
-    setPagination((prev) => ({
+    setOptions((prev) => ({
       ...prev,
       page: Math.min(totalPages, prev.page + 1),
     }));
   };
 
+  const handleAuthorityChange = (authority: string) => {
+    setOptions((prev) => ({ ...prev, authority, page: 1 }));
+  };
+
+  const isAbortError = (error: Error | null): boolean => {
+    return error instanceof DOMException && error.name === 'AbortError';
+  };
+
   return (
     <div className={styles.container}>
-      {error && (
+      <AuthorityFilter value={options.authority || ''} onChange={handleAuthorityChange} />
+      {error && !isAbortError(error) && (
         <div className={styles.error} role='alert'>
-          {error}
+          {error.message}
         </div>
       )}
 
@@ -38,7 +48,7 @@ const PaginatedEstablishmentsTable = () => {
       </div>
 
       <EstablishmentsTableNavigation
-        currentPage={pagination.page}
+        currentPage={options.page}
         totalPages={totalPages}
         onPrevious={handlePrevious}
         onNext={handleNext}

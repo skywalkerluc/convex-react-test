@@ -14,5 +14,5 @@ export type UseEstablishmentsReturn = {
   establishments: Establishment[];
   totalPages: number;
   loading: boolean;
-  error: string | null;
+  error: Error | null;
 };

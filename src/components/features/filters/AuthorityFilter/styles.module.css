@@ -1,0 +1,64 @@
+.filterContainer {
+    margin: 1.5rem 0;
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .filterContainer label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    color: #d4f7ec;
+    font-size: 1rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .filterContainer select {
+    display: block;
+    width: 100%;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid #4db6ac;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    color: #0a2f35;
+    appearance: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+  }
+  
+  .filterContainer select:focus {
+    outline: none;
+    border-color: #88d8d0;
+    box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.4);
+  }
+  
+  .filterContainer select:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1px);
+  }
+  
+  .filterContainer select:disabled {
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .filterContainer option {
+    padding: 0.8rem;
+    background: white;
+    color: #0a2f35;
+  }
+  
+  .filterContainer option:hover {
+    background: #88d8d0 !important;
+    color: #0a2f35;
+  }

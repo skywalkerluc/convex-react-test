@@ -1,7 +1,14 @@
+import { Authority } from './authority';
 import { Establishment } from './establishment';
 
 export type EstablishmentResponse = {
   establishments: Establishment[];
+  meta: MetaResponse;
+  links: LinksResponse[];
+};
+
+export type AuthorityResponse = {
+  authorities: Authority[];
   meta: MetaResponse;
   links: LinksResponse[];
 };
