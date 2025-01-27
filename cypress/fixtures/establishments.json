@@ -1,0 +1,88 @@
+{
+  "establishments": [
+    {
+      "FHRSID": 478887,
+      "BusinessName": "1 Stop Halal",
+      "RatingValue": "5",
+      "RatingDate": "2023-08-09T00:00:00",
+      "AddressLine1": "193-195 Bury New Road",
+      "AddressLine2": "Whitefield",
+      "AddressLine3": "Manchester",
+      "AddressLine4": "",
+      "PostCode": "M45 8QH",
+      "geocode": {
+        "latitude": "53.549991",
+        "longitude": "-2.304331"
+      },
+      "scores": {
+        "Hygiene": 5,
+        "Structural": 5,
+        "ConfidenceInManagement": 5
+      }
+    },
+    {
+      "FHRSID": 1043695,
+      "BusinessName": "A & S Pizza",
+      "RatingValue": "5",
+      "RatingDate": "2022-03-31T00:00:00",
+      "AddressLine1": "147 Northenden Road",
+      "AddressLine2": "Sale",
+      "AddressLine3": "Cheshire",
+      "AddressLine4": "",
+      "PostCode": "M33 2HS",
+      "geocode": {
+        "latitude": "53.429996",
+        "longitude": "-2.314331"
+      },
+      "scores": {
+        "Hygiene": 5,
+        "Structural": 5,
+        "ConfidenceInManagement": 5
+      }
+    },
+    {
+      "FHRSID": 647174,
+      "BusinessName": "A1 Pizza",
+      "RatingValue": "5",
+      "RatingDate": "2022-09-27T00:00:00",
+      "AddressLine1": "41-43 Market Street",
+      "AddressLine2": "Hyde",
+      "AddressLine3": "Cheshire",
+      "AddressLine4": "",
+      "PostCode": "SK14 1AH",
+      "geocode": {
+        "latitude": "53.452591",
+        "longitude": "-2.086207"
+      },
+      "scores": {
+        "Hygiene": 5,
+        "Structural": 5,
+        "ConfidenceInManagement": 5
+      }
+    }
+  ],
+  "meta": {
+    "dataSource": "API",
+    "extractDate": "2024-01-24",
+    "itemCount": 5,
+    "returncode": "OK",
+    "totalCount": 138073,
+    "totalPages": 27615,
+    "pageSize": 5,
+    "pageNumber": 1
+  },
+  "links": [
+    {
+      "rel": "first",
+      "href": "http://api.ratings.food.gov.uk/Establishments/basic/1/5"
+    },
+    {
+      "rel": "next",
+      "href": "http://api.ratings.food.gov.uk/Establishments/basic/2/5"
+    },
+    {
+      "rel": "last",
+      "href": "http://api.ratings.food.gov.uk/Establishments/basic/27615/5"
+    }
+  ]
+}

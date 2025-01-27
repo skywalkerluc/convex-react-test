@@ -1,4 +1,10 @@
-import { AuthorityListResponse, EstablishmentListResponse } from '../types/api';
+import {
+  ApiAuthorityResponse,
+  ApiEstablishmentDetailsResponse,
+  ApiEstablishmentResponse,
+  AuthorityListResponse,
+  EstablishmentListResponse,
+} from '../types/api';
 import { Establishment, EstablishmentDetails } from '../types/establishment';
 import { PaginationParams } from '../types/pagination';
 import { sanitizeBusinessName } from '../utils/sanitize';
@@ -12,15 +18,13 @@ const handleApiResponse = async (response: Response) => {
   return response.json();
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapEstablishment = (est: any): Establishment => ({
+const mapEstablishment = (est: ApiEstablishmentResponse): Establishment => ({
   id: est.FHRSID,
   businessName: sanitizeBusinessName(est.BusinessName),
   ratingValue: est.RatingValue || 'N/A',
 });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const mapEstablishmentDetails = (est: any): EstablishmentDetails => ({
+const mapEstablishmentDetails = (est: ApiEstablishmentDetailsResponse): EstablishmentDetails => ({
   id: est.FHRSID,
   businessName: sanitizeBusinessName(est.BusinessName),
   ratingValue: est.RatingValue || 'N/A',
@@ -47,8 +51,7 @@ export const getAuthorities = async (signal?: AbortSignal): Promise<AuthorityLis
     const rawData = await handleApiResponse(response);
 
     return {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      authorities: rawData.authorities.map((auth: any) => ({
+      authorities: rawData.authorities.map((auth: ApiAuthorityResponse) => ({
         id: auth.LocalAuthorityId,
         name: auth.Name,
       })),
@@ -102,6 +105,8 @@ export const getEstablishmentDetails = async (
 
     return mapEstablishmentDetails(rawData);
   } catch (error) {
-    throw new Error(error instanceof Error ? error.message : 'Falha ao buscar detalhes');
+    throw new Error(
+      error instanceof Error ? error.message : 'Failed to fetch establishment details',
+    );
   }
 };

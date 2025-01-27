@@ -30,7 +30,9 @@ describe('AuthorityFilter', () => {
     mockAppContext.state = {
       ...mockAppContext.state,
       authorities: [],
-      isLoading: true,
+      isLoading: {
+        authorities: true,
+      },
     };
 
     render(<AuthorityFilter value='' onChange={() => {}} />);
