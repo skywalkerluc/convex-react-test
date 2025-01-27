@@ -11,12 +11,19 @@ const mockEstablishments = [
   },
 ];
 
+jest.mock('../../context/FavouritesContext', () => ({
+  useFavourites: () => ({
+    favourites: [],
+    toggleFavourite: jest.fn(),
+  }),
+}));
+
 describe('EstablishmentsTable', () => {
   it('matches snapshot', () => {
-    const { asFragment } = render(
+    const { container } = render(
       <EstablishmentsTable establishments={mockEstablishments} loading={false} />,
       { wrapper: createWrapper() },
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 });

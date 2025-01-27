@@ -16,6 +16,7 @@ const EstablishmentsTable: React.FC<TableProps> = ({ establishments, loading }) 
     <table className={styles.table}>
       <thead>
         <tr>
+          <th className={styles.headerAction}>Select</th>
           <th className={styles.header}>Business Name</th>
           <th className={styles.header}>Rating</th>
         </tr>

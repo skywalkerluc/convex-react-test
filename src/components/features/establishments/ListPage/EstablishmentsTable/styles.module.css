@@ -11,16 +11,26 @@
   border-bottom: 2px solid #e9ecef;
 }
 
+.headerAction {
+  padding: 16px;
+  text-align: left;
+  background: #f8f9fa;
+  border-bottom: 2px solid #e9ecef;
+  width: 10%;
+}
+
 .loadingCell {
+  width: 100%;
   padding: 40px;
   text-align: center;
   background: rgba(255, 255, 255, 0.9);
 }
 
 .noResults {
-  padding: 40px;
+  padding: 30px;
   text-align: center;
   color: white;
+  width: 100%;
 }
 
 tbody tr {

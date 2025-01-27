@@ -3,6 +3,13 @@ import { render, screen } from '@testing-library/react';
 import { createWrapper } from '../../test-utils';
 import PaginatedEstablishmentsTable from '../features/establishments/ListPage/PaginatedEstablishmentsTable';
 
+jest.mock('../../context/FavouritesContext', () => ({
+  useFavourites: () => ({
+    favourites: [],
+    toggleFavourite: jest.fn(),
+  }),
+}));
+
 jest.mock('../../context/AppContext', () => ({
   useAppContext: () => ({
     state: {
