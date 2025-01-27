@@ -1,6 +1,36 @@
 import { Authority } from './authority';
 import { Establishment } from './establishment';
 
+export interface ApiEstablishmentResponse {
+  FHRSID: number;
+  BusinessName: string;
+  RatingValue: string;
+}
+
+export interface ApiAuthorityResponse {
+  LocalAuthorityId: number;
+  Name: string;
+}
+
+export interface ApiEstablishmentDetailsResponse {
+  FHRSID: number;
+  BusinessName: string;
+  RatingValue: string;
+  RatingDate: string;
+  AddressLine1: string;
+  AddressLine2: string;
+  AddressLine3: string;
+  AddressLine4: string;
+  PostCode: string;
+  scores?: ApiDetailsScoreResponse;
+}
+
+export interface ApiDetailsScoreResponse {
+  Hygiene: string;
+  Structural: string;
+  ConfidenceInManagement: string;
+}
+
 export type EstablishmentListResponse = {
   establishments: Establishment[];
   meta: MetaResponse;

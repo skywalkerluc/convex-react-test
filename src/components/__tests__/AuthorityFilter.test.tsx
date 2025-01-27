@@ -31,7 +31,7 @@ describe('AuthorityFilter', () => {
       ...mockAppContext.state,
       authorities: [],
       isLoading: {
-        authorities: true
+        authorities: true,
       },
     };
 

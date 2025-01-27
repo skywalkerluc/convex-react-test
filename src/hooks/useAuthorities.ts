@@ -21,23 +21,19 @@ export const useAuthorities = () => {
       try {
         const data = await getAuthorities(controller.signal);
         if (isMounted) {
-          setTimeout(() => {
-            setState({
-              authorities: data.authorities,
-              loading: false,
-              error: null,
-            });
-          }, 0);
+          setState({
+            authorities: data.authorities,
+            loading: false,
+            error: null,
+          });
         }
       } catch (error) {
         if (isMounted && !controller.signal.aborted) {
-          setTimeout(() => {
-            setState({
-              authorities: [],
-              loading: false,
-              error: error instanceof Error ? error.message : 'Unknown error',
-            });
-          }, 0);
+          setState({
+            authorities: [],
+            loading: false,
+            error: error instanceof Error ? error.message : 'Unknown error',
+          });
         }
       }
     };

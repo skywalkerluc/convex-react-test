@@ -1,4 +1,5 @@
 import { useAppContext } from '../../../../../context/AppContext';
+import { ErrorDisplay } from '../../../../common/Error';
 import { AuthorityFilter } from '../../../filters/AuthorityFilter';
 import EstablishmentsTable from '../EstablishmentsTable';
 import EstablishmentsTableNavigation from '../EstablishmentsTableNavigation';
@@ -28,11 +29,7 @@ const PaginatedEstablishmentsTable = () => {
     <div className={styles.container}>
       <AuthorityFilter value={pagination.authority || ''} onChange={handleAuthorityChange} />
 
-      {error && !isLoading && (
-        <div className={styles.error} role='alert'>
-          {error}
-        </div>
-      )}
+      {error && !isLoading && <ErrorDisplay error={error} />}
 
       <div className={styles.tableWrapper}>
         <EstablishmentsTable establishments={establishments} loading={isLoading.establishments} />

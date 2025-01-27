@@ -61,4 +61,10 @@ describe('EstablishmentDetailsPage', () => {
     const { getByText } = render(<EstablishmentDetailsPage />, { wrapper: createWrapper() });
     expect(getByText('Error: Test error')).toBeInTheDocument();
   });
+
+  it('should display hygiene score', () => {
+    mockUseEstablishmentDetails.mockReturnValue({ details: mockDetails });
+    const { getByText } = render(<EstablishmentDetailsPage />, { wrapper: createWrapper() });
+    expect(getByText('Hygiene')).toBeInTheDocument();
+  });
 });

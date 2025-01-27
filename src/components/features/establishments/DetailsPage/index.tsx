@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 
 import { useEstablishmentDetails } from '../../../../hooks/useEstablishmentDetails';
@@ -10,13 +11,10 @@ const EstablishmentDetailsPage = () => {
   const navigate = useNavigate();
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
+    return format(new Date(dateString), 'dd/MM/yyyy');
   };
 
-  if (loading) return <LoadingIndicator message='Loading establishment details...' />;
+  if (loading) return <LoadingIndicator message='Loading...' />;
 
   if (error)
     return (
@@ -30,7 +28,7 @@ const EstablishmentDetailsPage = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
+      <button className={styles.backButton} onClick={() => navigate('/')}>
         &larr; Go back
       </button>
 
