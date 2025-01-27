@@ -1,0 +1,48 @@
+{
+    "FHRSID": 478887,
+    "BusinessName": "1 Stop Halal",
+    "BusinessType": "Retailers - other",
+    "BusinessTypeID": 4613,
+    "AddressLine1": "193-195 Bury New Road",
+    "AddressLine2": "Whitefield",
+    "AddressLine3": "Manchester",
+    "AddressLine4": "",
+    "PostCode": "M45 8QH",
+    "Phone": "",
+    "RatingValue": "5",
+    "RatingKey": "fhrs_5_en-gb",
+    "RatingDate": "2023-08-09T00:00:00",
+    "LocalAuthorityCode": "E08000009",
+    "LocalAuthorityName": "Bury",
+    "LocalAuthorityWebSite": "http://www.bury.gov.uk/environmentalhealth",
+    "LocalAuthorityEmailAddress": "foodsafety@bury.gov.uk",
+    "scores": {
+      "Hygiene": 5,
+      "Structural": 5,
+      "ConfidenceInManagement": 5
+    },
+    "SchemeType": "FHRS",
+    "geocode": {
+      "longitude": "-2.304331",
+      "latitude": "53.549991"
+    },
+    "RightToReply": "",
+    "Distance": 4587.369119259299,
+    "NewRatingPending": false,
+    "meta": {
+      "dataSource": "API",
+      "extractDate": "2024-01-24",
+      "itemCount": 1,
+      "returncode": "OK",
+      "totalCount": 1,
+      "totalPages": 1,
+      "pageSize": 0,
+      "pageNumber": 0
+    },
+    "links": [
+      {
+        "rel": "self",
+        "href": "http://api.ratings.food.gov.uk/Establishments/478887"
+      }
+    ]
+  }

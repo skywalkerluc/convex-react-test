@@ -7,7 +7,7 @@ interface LoadingIndicatorProps {
 }
 
 export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({ message }) => (
-  <div className={styles.container} role='alert' aria-live='polite'>
+  <div className={styles.container} role='alert' data-testid='loading-indicator' aria-live='polite'>
     <div className={styles.spinner} />
     <span className={styles.text}>{message || 'Loading...'}</span>
   </div>
