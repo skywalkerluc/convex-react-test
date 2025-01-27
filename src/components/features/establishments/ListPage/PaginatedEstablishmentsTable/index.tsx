@@ -35,7 +35,7 @@ const PaginatedEstablishmentsTable = () => {
       )}
 
       <div className={styles.tableWrapper}>
-        <EstablishmentsTable establishments={establishments} loading={isLoading} />
+        <EstablishmentsTable establishments={establishments} loading={isLoading.establishments} />
       </div>
 
       <EstablishmentsTableNavigation
@@ -43,7 +43,7 @@ const PaginatedEstablishmentsTable = () => {
         totalPages={totalPages}
         onPrevious={handlePrevious}
         onNext={handleNext}
-        loading={isLoading}
+        loading={isLoading.establishments}
       />
     </div>
   );

@@ -8,7 +8,7 @@ import styles from './styles.module.css';
 
 interface TableProps {
   establishments: Establishment[];
-  loading?: boolean;
+  loading: boolean;
 }
 
 const EstablishmentsTable: React.FC<TableProps> = ({ establishments, loading }) => {
