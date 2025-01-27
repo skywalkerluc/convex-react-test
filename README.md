@@ -42,6 +42,7 @@ npm run start
 
 ## Project Structure
 ```
+cypress/             # e2e tests
 src/
 ├── api/             # API client
 ├── components/      # React components
@@ -62,8 +63,20 @@ npm run test:coverage  # Generate coverage report
 npm run test:update    # Update snapshots and test
 ```
 
+### e2e tests
+- To run it properly, you must open 2 terminals.
+
+  - The first one, you should run:
+  ```npm run start```
+
+  - The second terminal you should run: 
+  ```npm run cypress```
+
+
+
 ### Coverage Areas
 1. Component rendering
 2. Object states (hooks)
 3. API response handling
 4. Error states
+5. Complete flows
