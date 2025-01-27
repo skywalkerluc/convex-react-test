@@ -11,7 +11,10 @@ type AppState = {
   establishments: Establishment[];
   pagination: PaginationParams;
   totalPages: number;
-  isLoading: boolean;
+  isLoading: {
+    authorities: boolean;
+    establishments: boolean;
+  };
   error: string | null;
 };
 
@@ -32,7 +35,10 @@ const initialState: AppState = {
   establishments: [],
   pagination: { page: 1, pageSize: 5 },
   totalPages: 0,
-  isLoading: true,
+  isLoading: {
+    authorities: false,
+    establishments: false,
+  },
   error: null,
 };
 
@@ -51,22 +57,34 @@ const AppContext = createContext<{
 const appReducer = (state: AppState, action: AppAction): AppState => {
   switch (action.type) {
     case 'FETCH_AUTHORITIES_START':
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: { ...state.isLoading, authorities: true }, error: null };
     case 'FETCH_AUTHORITIES_SUCCESS':
-      return { ...state, isLoading: false, authorities: action.payload };
+      return {
+        ...state,
+        isLoading: { ...state.isLoading, authorities: false },
+        authorities: action.payload,
+      };
     case 'FETCH_AUTHORITIES_ERROR':
-      return { ...state, isLoading: false, error: action.payload };
+      return {
+        ...state,
+        isLoading: { ...state.isLoading, authorities: false },
+        error: action.payload,
+      };
     case 'FETCH_ESTABLISHMENTS_START':
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: { ...state.isLoading, establishments: true }, error: null };
     case 'FETCH_ESTABLISHMENTS_SUCCESS':
       return {
         ...state,
-        isLoading: false,
+        isLoading: { ...state.isLoading, establishments: false },
         establishments: action.payload.establishments,
         totalPages: action.payload.totalPages,
       };
     case 'FETCH_ESTABLISHMENTS_ERROR':
-      return { ...state, isLoading: false, error: action.payload };
+      return {
+        ...state,
+        isLoading: { ...state.isLoading, establishments: false },
+        error: action.payload,
+      };
     case 'SET_PAGINATION':
       return {
         ...state,

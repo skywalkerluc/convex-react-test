@@ -19,7 +19,7 @@ export const AuthorityFilter = ({
         id='authority-filter'
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        disabled={isLoading}
+        disabled={isLoading.authorities}
       >
         <option value=''>All Authorities</option>
         {authorities.map((authority) => (
