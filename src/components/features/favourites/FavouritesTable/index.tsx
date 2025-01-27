@@ -20,15 +20,16 @@ const FavouritesTable = () => {
             onClick={handleClearAll}
             className={`${styles.button} ${styles.clearButton}`}
             aria-label='Clear all favourites'
+            data-testid='remove-all-favourites-button'
           >
             Clear All
           </button>
         )}
       </div>
 
-      <div className={styles.tableWrapper}>
+      <div className={styles.tableWrapper} data-testid='favourites-wrapper'>
         {favourites.length > 0 ? (
-          <table className={styles.table}>
+          <table className={styles.table} data-testid='favourites-table'>
             <thead>
               <tr>
                 <th className={styles.header}>Business Name</th>
@@ -46,6 +47,7 @@ const FavouritesTable = () => {
                       onClick={() => removeFavourite(fav.id)}
                       className={styles.button}
                       aria-label={`Remove ${fav.businessName} from favourites`}
+                      data-testid='favourites-remove-button'
                     >
                       Remove
                     </button>
@@ -55,7 +57,9 @@ const FavouritesTable = () => {
             </tbody>
           </table>
         ) : (
-          <p className={styles.emptyMessage}>No favourites selected</p>
+          <p className={styles.emptyMessage} data-testid='empty-favourites'>
+            No favourites selected
+          </p>
         )}
       </div>
     </div>

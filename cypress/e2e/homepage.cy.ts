@@ -8,7 +8,7 @@ describe('Homepage', () => {
   it('should display the establishments table with correct data', () => {
     cy.get('table').should('be.visible');
     cy.get('tbody tr').should('have.length', 3);
-    cy.get('tbody tr:first-child td:first-child').should('contain', '1 Stop Halal');
+    cy.get('tbody tr:first-child td:nth-child(2)').should('contain', '1 Stop Halal');
   });
 
   it('should display the authority filter and pagination controls', () => {
